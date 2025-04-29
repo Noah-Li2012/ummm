@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+            color: white;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-size: 70px;
+            transition: all 0.5s;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        .crazy {
+            animation: crazy 0.1s infinite alternate;
+        }
+        @keyframes crazy {
+            0% { background-color: #9d00ff; color: #e600ff;}
+            100% { background-color: #9d00ff; color: #e990fa;}
+            /*100% { background-color: #57008d; color: black; transform: rotate(-2deg) scale(1.1); }*/
+        }
+        .confetti, .word {
+            position: absolute;
+            font-size: 30px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="message" class="hidden">
+    🎉 Happy Birthday Mom! 🎉<br>      -by Noah
+</div>
+
+<audio id="partySound" src="party.mp3" preload="auto"></audio>
+
+<script>
+setTimeout(() => {
+    const message = document.getElementById('message');
+    message.classList.remove('hidden');
+    document.body.classList.add('crazy');
+    document.getElementById('partySound').play();
+
+    setInterval(() => {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.innerText = ["🎉", "✨", "🥳", "🎂","🍪"][Math.floor(Math.random() * 5)];
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.top = '-50px';
+        document.body.appendChild(confetti);
+
+        let fall = setInterval(() => {
+            confetti.style.top = (parseFloat(confetti.style.top) + 5) + 'px';
+            if (parseFloat(confetti.style.top) > window.innerHeight) {
+                confetti.remove();
+                clearInterval(fall);
+            }
+        }, 30);
+    }, 100);
+
+    const words = ["AYOO", "YO", "LET'S GOOO", "PARTY TIME", "WOOOO", "HAPPY B-DAY", "Hello?","OH", "oh Yo wsp", "Hey sup", "Hi", "AH", "LOL"];
+    setInterval(() => {
+        const word = document.createElement('div');
+        word.className = 'word';
+        word.innerText = words[Math.floor(Math.random() * words.length)];
+        word.style.left = Math.random() * window.innerWidth + 'px';
+        word.style.top = '-50px';
+        word.style.color = 'white';
+        word.style.fontSize = (20 + Math.random() * 40) + 'px';
+        document.body.appendChild(word);
+
+        let fall = setInterval(() => {
+            word.style.top = (parseFloat(word.style.top) + 7) + 'px';
+            if (parseFloat(word.style.top) > window.innerHeight) {
+                word.remove();
+                clearInterval(fall);
+            }
+        }, 30);
+    }, 300);
+
+}, 0);
+</script>
+
+</body>
+</html>
